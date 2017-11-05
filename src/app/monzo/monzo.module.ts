@@ -1,7 +1,7 @@
-import { MonzoService } from './monzo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MonzoEffect } from './monzo.effect';
 
 @NgModule({
   imports: [
@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
     HttpClientModule
   ],
   providers: [
-    MonzoService
+    MonzoEffect
   ]
 })
 export class MonzoModule { }

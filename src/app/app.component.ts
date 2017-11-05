@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from './app.store';
-import { AppActions } from './app.actions';
-import { Account } from './monzo/monzo';
+import { GetAccounts} from './app.actions';
+import { Account } from './monzo/monzo.model';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -13,12 +13,11 @@ import { Store } from '@ngrx/store';
 export class AppComponent implements OnInit {
   readonly $accounts: Observable<Account[]>;
 
-  constructor(private store: Store<AppState>,
-              private appActions: AppActions) {
+  constructor(private store: Store<AppState>) {
     this.$accounts = store.select('accounts');
   }
 
   ngOnInit(): void {
-    this.store.dispatch(this.appActions.getAccounts());
+    this.store.dispatch(new GetAccounts());
   }
 }

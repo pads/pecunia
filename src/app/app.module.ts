@@ -12,9 +12,11 @@ import { MonzoModule } from './monzo/monzo.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AppActions } from './app.actions';
 import { StoreModule } from '@ngrx/store';
 import { rootReducer } from './app.store';
+import { EffectsModule } from '@ngrx/effects';
+import { MonzoEffect } from './monzo/monzo.effect';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { rootReducer } from './app.store';
     MatGridListModule,
     MatCardModule,
     StoreModule.forRoot({ accounts: rootReducer }),
+    EffectsModule.forRoot([MonzoEffect]),
+    StoreDevtoolsModule.instrument({ maxAge: 25 }),
     AuthModule,
     MonzoModule
   ],
@@ -35,8 +39,7 @@ import { rootReducer } from './app.store';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },
-    AppActions
+    }
   ],
   bootstrap: [AppComponent]
 })
