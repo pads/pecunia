@@ -27,6 +27,6 @@ export class MonzoEffect {
     .mergeMap(action =>
       this.http.get<Accounts>(`${BASE_URL}/accounts`)
         .map(data => (new AccountsResolved(data.accounts)))
-        .catch(() => of(new AccountsFailed()))
+        .catch(data => of(new AccountsFailed(data.error.message))) // TODO prompt login on 401
     );
 }
