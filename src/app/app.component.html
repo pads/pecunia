@@ -5,6 +5,23 @@
   <mat-grid-tile
     [colspan]="1"
     [rowspan]="1">
-    <h1 class="mat-display-1">Coming soon</h1>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Accounts</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li *ngFor="let account of $accounts | async">
+            <p>{{account.id}} - {{account.type}}</p>
+            <p>{{account.description}}</p>
+            <p>{{account.created}}</p>
+            <p *ngIf="account.type == 'uk_retail'">{{account.account_number}}</p>
+            <p *ngIf="account.type == 'uk_retail'">{{account.sort_code}}</p>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+
   </mat-grid-tile>
 </mat-grid-list>
