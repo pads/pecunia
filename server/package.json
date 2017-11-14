@@ -1,0 +1,30 @@
+{
+  "name": "pecunia",
+  "version": "1.0.0",
+  "description": "A Monzo app",
+  "scripts": {
+    "start": "node_modules/.bin/ts-node src/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pads/pecunia.git"
+  },
+  "keywords": [
+    "monzo"
+  ],
+  "author": "pads",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pads/pecunia/issues"
+  },
+  "homepage": "https://github.com/pads/pecunia#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
+  }
+}
