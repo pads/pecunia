@@ -1,9 +1,17 @@
 import * as express from 'express';
+import * as oauthController from './controllers/oauth';
 
-const app = express();
+export default class Server {
+  public app: express.Application;
 
-app.set('port', process.env.PORT || 3000);
+  constructor() {
+    this.app = express();
+    this.app.set('port', process.env.PORT || 3000);
+    this.app.get('/oauth/callback', oauthController.callback);
+  }
 
-app.listen(app.get('port'), () => console.log(`Listening on port ${app.get('port')}`));
-
-module.exports = app;
+  public start(): Promise<any> {
+    const port = this.app.get('port');
+    return new Promise((resolve) => this.app.listen(port, resolve.bind(this, port)));
+  }
+}
