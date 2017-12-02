@@ -10,22 +10,27 @@ describe('Oauth callback controller', () => {
   use(sinonChai);
 
   let controller: CallbackController;
-  let serviceStub: any;
+  let authorization: Authorization;
   let fakeSession: any;
+  let serviceStub: any;
 
   beforeEach(() => {
     serviceStub = createStubInstance(OauthService);
-    fakeSession = {};
+    fakeSession = {
+      state: '123',
+    };
     controller = new CallbackController(serviceStub);
   });
 
   describe('successful action', () => {
-    it('should call the oauth service with the given code', () => {
-      const authorization = {
+    beforeEach(() => {
+      authorization = {
         code: 'abc',
         state: '123',
-      } as Authorization;
+      };
+    });
 
+    it('should call the oauth service with the given code', () => {
       controller.action(authorization, fakeSession);
 
       expect(serviceStub.getToken)
@@ -34,16 +39,21 @@ describe('Oauth callback controller', () => {
 
     it('should save the access token to the session', async () => {
       const expectedToken = 'MY_TOKEN';
-      const authorization = {
-        code: 'abc',
-        state: '123',
-      } as Authorization;
 
       serviceStub.getToken.returns(expectedToken);
 
       await controller.action(authorization, fakeSession);
 
       expect(fakeSession.access_token).to.equal(expectedToken);
+    });
+  });
+
+  describe('unsuccessful action', () => {
+    it('should reject when the state does not match', () => {
+      fakeSession.state = 'not_matching';
+
+      return expect(controller.action(authorization, fakeSession))
+        .to.be.rejectedWith('Invalid state');
     });
   });
 });

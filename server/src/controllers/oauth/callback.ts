@@ -18,14 +18,21 @@ export default class CallbackController extends BaseController {
       state: request.query.state,
     } as Authorization;
 
-    await this.action(authorization, request.session);
-
-    return response.redirect('/');
+    try {
+      await this.action(authorization, request.session);
+      response.redirect('/');
+    } catch (error) {
+      /** @todo friendly error page */
+      response.status(401).end();
+    }
   }
 
   public async action(authorization: Authorization, session: Express.Session) {
+    if (authorization.state !== session.state) {
+      return Promise.reject('Invalid state');
+    }
+
     const token = await this.oauthService.getToken(authorization.code);
     session.access_token = token;
-    return Promise.resolve();
   }
 }
