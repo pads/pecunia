@@ -4,6 +4,6 @@ import BaseRoute from '@src/routes/base';
 export default class OauthRoutes extends BaseRoute {
   constructor(oauthController: OauthController) {
     super();
-    this.getRoutes.set('/oauth/callback', oauthController.callback.bind(oauthController));
+    this.getRoutes.set('/oauth/callback', oauthController.handle.bind(oauthController));
   }
 }

@@ -10,20 +10,19 @@ export default class OauthController {
     this.oauthService = oauthService;
   }
 
-  public async callback(request: Request, response: Response) {
+  public async handle(request: Request, response: Response) {
     const authorization = {
       code: request.query.code,
       state: request.query.state,
     } as Authorization;
 
-    const token = await this.action(authorization);
+    await this.action(authorization, request.session);
 
-    request.session.access_token = token;
-
-    response.json(token);
+    response.redirect('/');
   }
 
-  public async action(authorization: Authorization) {
-    return await this.oauthService.getToken(authorization.code);
+  public async action(authorization: Authorization, session: Express.Session) {
+    const token = await this.oauthService.getToken(authorization.code);
+    session.access_token = token;
   }
 }
