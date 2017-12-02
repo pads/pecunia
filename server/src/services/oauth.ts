@@ -31,7 +31,6 @@ export default class OauthService {
       const response = await request(options);
       return Promise.resolve(response.access_token);
     } catch (error) {
-      console.log(error);
       if (error.statusCode >= 500) {
         return Promise.reject(error);
       }

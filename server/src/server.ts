@@ -1,9 +1,12 @@
 import * as bodyParser from 'body-parser';
-import * as express from 'express';
+import { config } from 'dotenv';
 import * as errorHandler from 'errorhandler';
+import * as express from 'express';
+import * as session from 'express-session';
+import { SessionOptions } from 'express-session';
 import OauthController from './controllers/oauth';
 import OauthService from './services/oauth';
-import { config } from 'dotenv';
+
 config();
 
 export default class Server {
@@ -14,6 +17,8 @@ export default class Server {
 
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
+
+    this.configureSession();
 
     if (process.env.NODE_ENV !== 'production') {
       this.app.use(errorHandler());
@@ -29,6 +34,33 @@ export default class Server {
     const oauthController = new OauthController(oauthService);
 
     this.app.get('/oauth/callback', oauthController.callback.bind(oauthController));
+  }
+
+  configureSession() {
+    const MemcachedStore = require('connect-memcached')(session);
+    const store = new MemcachedStore({
+      hosts: process.env.CACHE_HOST,
+      secret: process.env.CACHE_SECRET,
+    });
+
+    const options = {
+      name: 'pecunia',
+      secret: process.env.SESSION_SECRET,
+      cookie: {
+        domain: process.env.COOKIE_DOMAIN,
+        sameSite: true,
+      },
+      store,
+      resave: true,
+      saveUninitialized: true,
+    } as SessionOptions;
+
+    if (process.env.NODE_ENV === 'production') {
+      this.app.set('trust proxy', 1);
+      options.cookie.secure = true;
+    }
+
+    this.app.use(session(options));
   }
 
   public start(): Promise<any> {
