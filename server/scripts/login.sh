@@ -1,5 +1,7 @@
 #!/bin/sh
-source .env
+
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+source "$SCRIPT_PATH/../.env"
 
 if [ $# -eq 0 ]
   then
