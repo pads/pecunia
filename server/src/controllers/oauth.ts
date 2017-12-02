@@ -1,6 +1,7 @@
+import OauthService from '@src/services/oauth';
+import { Authorization } from '@src/types/oauth';
+
 import { Request, Response } from 'express';
-import OauthService from '../services/oauth';
-import { Authorization } from '../types/oauth';
 
 export default class OauthController {
   public oauthService: OauthService;

@@ -1,11 +1,12 @@
+import OauthController from '@src/controllers/oauth';
+import OauthService from '@src/services/oauth';
+
 import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
 import * as errorHandler from 'errorhandler';
 import * as express from 'express';
 import * as session from 'express-session';
 import { SessionOptions } from 'express-session';
-import OauthController from './controllers/oauth';
-import OauthService from './services/oauth';
 
 config();
 

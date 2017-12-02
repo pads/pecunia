@@ -1,5 +1,6 @@
+import Server from '@src/server';
+
 import * as ngrok from 'ngrok';
-import Server from './server';
 
 const server = new Server();
 

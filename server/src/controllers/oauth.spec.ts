@@ -1,9 +1,10 @@
+import OauthController from '@src/controllers/oauth';
+import OauthService from '@src/services/oauth';
+import { Authorization } from '@src/types/oauth';
+
 import { expect, use } from 'chai';
 import { createStubInstance } from 'sinon';
 import * as sinonChai from 'sinon-chai';
-import OauthService from '../services/oauth';
-import { Authorization } from '../types/oauth';
-import OauthController from './oauth';
 
 describe('Oauth controller', () => {
   use(sinonChai);

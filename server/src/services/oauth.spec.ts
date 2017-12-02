@@ -1,7 +1,8 @@
+import OauthService from '@src/services/oauth';
+
 import { expect, use } from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 import * as nock from 'nock';
-import OauthService from './oauth';
 
 describe('Oauth service', () => {
   use(chaiAsPromised);
