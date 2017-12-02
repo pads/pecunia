@@ -1,4 +1,4 @@
-import OauthController from '@src/controllers/oauth';
+import CallbackController from '@src/controllers/oauth/callback';
 import OauthService from '@src/services/oauth';
 import { Authorization } from '@src/types/oauth';
 
@@ -6,17 +6,17 @@ import { expect, use } from 'chai';
 import { createStubInstance, spy } from 'sinon';
 import * as sinonChai from 'sinon-chai';
 
-describe('Oauth controller', () => {
+describe('Oauth callback controller', () => {
   use(sinonChai);
 
-  let controller: OauthController;
+  let controller: CallbackController;
   let serviceStub: any;
   let fakeSession: any;
 
   beforeEach(() => {
     serviceStub = createStubInstance(OauthService);
     fakeSession = {};
-    controller = new OauthController(serviceStub);
+    controller = new CallbackController(serviceStub);
   });
 
   describe('successful action', () => {

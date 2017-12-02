@@ -1,6 +1,5 @@
-import OauthController from '@src/controllers/oauth';
-import { RouteBinder, RouteVerb } from '@src/routes/base';
-import OauthRoutes from '@src/routes/oauth';
+import CallbackController from '@src/controllers/oauth/callback';
+import OauthRouter from '@src/routers/oauth';
 import OauthService from '@src/services/oauth';
 import { ControllerFunction } from '@src/types/functions';
 
@@ -37,14 +36,9 @@ export default class Server {
       process.env.CLIENT_SECRET,
       process.env.REDIRECT_URI,
     );
-    const oauthController = new OauthController(oauthService);
-    const oauthRoutes = new OauthRoutes(oauthController);
-
-    oauthRoutes.routes.forEach((paths: RouteBinder, verb: RouteVerb) => {
-      paths.forEach((handler: ControllerFunction, path: string) => {
-        this.app[verb](path, handler);
-      });
-    });
+    const callbackController = new CallbackController(oauthService);
+    const oauthRouter = new OauthRouter([callbackController]);
+    oauthRouter.configure(this);
   }
 
   configureSession() {
