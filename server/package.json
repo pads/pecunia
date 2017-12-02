@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "A Monzo app",
   "scripts": {
-    "start": "node_modules/.bin/ts-node bin/www",
+    "start": "node_modules/.bin/ts-node -r tsconfig-paths/register bin/www",
     "tunnel": "node_modules/.bin/ts-node src/tunnel",
     "lint": "node_modules/.bin/tslint --project . src/**/*.ts",
     "lint-fix": "node_modules/.bin/tslint --fix --project . src/**/*.ts",
-    "test": "./node_modules/mocha/bin/mocha -r ts-node/register src/**/*.spec.ts",
+    "test": "./node_modules/mocha/bin/mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
     "build": "npm run lint && npm run test"
   },
   "repository": {
@@ -56,6 +56,7 @@
     "sinon": "^4.1.2",
     "sinon-chai": "^2.14.0",
     "ts-node": "^3.3.0",
+    "tsconfig-paths": "^2.4.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1"
   }

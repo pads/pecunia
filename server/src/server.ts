@@ -1,5 +1,8 @@
 import OauthController from '@src/controllers/oauth';
+import { RouteBinder, RouteVerb } from '@src/routes/base';
+import OauthRoutes from '@src/routes/oauth';
 import OauthService from '@src/services/oauth';
+import { ControllerFunction } from '@src/types/functions';
 
 import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
@@ -18,23 +21,30 @@ export default class Server {
 
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.set('port', process.env.PORT || 3000);
 
     this.configureSession();
+    this.configureRoutes();
 
     if (process.env.NODE_ENV !== 'production') {
       this.app.use(errorHandler());
     }
+  }
 
-    this.app.set('port', process.env.PORT || 3000);
-
+  configureRoutes() {
     const oauthService = new OauthService(
       process.env.CLIENT_ID,
       process.env.CLIENT_SECRET,
       process.env.REDIRECT_URI,
     );
     const oauthController = new OauthController(oauthService);
+    const oauthRoutes = new OauthRoutes(oauthController);
 
-    this.app.get('/oauth/callback', oauthController.callback.bind(oauthController));
+    oauthRoutes.routes.forEach((paths: RouteBinder, verb: RouteVerb) => {
+      paths.forEach((handler: ControllerFunction, path: string) => {
+        this.app[verb](path, handler);
+      });
+    });
   }
 
   configureSession() {
