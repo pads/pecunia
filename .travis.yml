@@ -5,7 +5,7 @@ before_install:
   - "cd client && npm install && cd ../"
 script:
   - "npm run build"
-  - "cd client && npm run build"
+  - "cd client && npm run ci"
 cache:
   directories:
     - "node_modules"
