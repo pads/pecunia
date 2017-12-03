@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from './app.store';
-import { GetAccounts} from './app.actions';
+import { GetAccounts } from './app.actions';
 import { Account } from './monzo/monzo.model';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
