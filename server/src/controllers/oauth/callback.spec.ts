@@ -46,6 +46,12 @@ describe('Oauth callback controller', () => {
 
       expect(fakeSession.access_token).to.equal(expectedToken);
     });
+
+    it('should remove the state from the session', async () => {
+      await controller.action(authorization, fakeSession);
+
+      expect(fakeSession.state === undefined).to.equal(true);
+    });
   });
 
   describe('unsuccessful action', () => {

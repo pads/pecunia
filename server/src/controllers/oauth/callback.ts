@@ -33,6 +33,8 @@ export default class CallbackController extends BaseController {
     }
 
     const token = await this.oauthService.getToken(authorization.code);
+    /* @todo consider using immutable js */
     session.access_token = token;
+    delete session.state;
   }
 }
