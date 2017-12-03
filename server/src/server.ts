@@ -1,4 +1,5 @@
 import CallbackController from '@src/controllers/oauth/callback';
+import LoginController from '@src/controllers/oauth/login';
 import OauthRouter from '@src/routers/oauth';
 import OauthService from '@src/services/oauth';
 import { ControllerFunction } from '@src/types/functions';
@@ -36,8 +37,14 @@ export default class Server {
       process.env.CLIENT_SECRET,
       process.env.REDIRECT_URI,
     );
+
     const callbackController = new CallbackController(oauthService);
-    const oauthRouter = new OauthRouter([callbackController]);
+    const loginController = new LoginController(oauthService);
+
+    const oauthRouter = new OauthRouter([
+      callbackController,
+      loginController,
+    ]);
     oauthRouter.configure(this);
   }
 

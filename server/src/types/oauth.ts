@@ -3,6 +3,11 @@ export interface Authorization {
   state: string;
 }
 
+export interface Login {
+  state: string;
+  uri: uri.URI;
+}
+
 export interface Token {
   access_token: string;
   client_id: string;

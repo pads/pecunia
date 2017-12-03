@@ -1,6 +1,10 @@
+import { Login } from '@src/types/oauth';
+
 import { UriOptions } from 'request';
 import * as request from 'request-promise-native';
 import { RequestPromiseOptions } from 'request-promise-native';
+import * as URI from 'urijs';
+import * as uuid from 'uuid';
 
 export default class OauthService {
   public clientId: string;
@@ -11,6 +15,20 @@ export default class OauthService {
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.redirectUri = redirectUri;
+  }
+
+  public getLogin(): Login {
+    const state = uuid();
+
+    const uri = URI('https://auth.getmondo.co.uk')
+      .search({
+        client_id: this.clientId,
+        redirect_uri: this.redirectUri,
+        response_type: 'code',
+        state,
+      });
+
+    return { state, uri };
   }
 
   public async getToken(authCode: string): Promise<string | null> {

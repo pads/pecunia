@@ -31,7 +31,9 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "request": "^2.83.0",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.5",
+    "urijs": "^1.19.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
@@ -48,6 +50,8 @@
     "@types/request-promise-native": "^1.0.10",
     "@types/sinon": "^4.0.0",
     "@types/sinon-chai": "^2.7.29",
+    "@types/urijs": "^1.15.34",
+    "@types/uuid": "^3.4.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "mocha": "^4.0.1",

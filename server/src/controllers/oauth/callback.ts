@@ -5,7 +5,7 @@ import { Authorization } from '@src/types/oauth';
 import { Request, Response } from 'express';
 
 export default class CallbackController extends BaseController {
-  public oauthService: OauthService;
+  private oauthService: OauthService;
 
   constructor(oauthService: OauthService) {
     super();
