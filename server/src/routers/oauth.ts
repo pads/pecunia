@@ -8,6 +8,7 @@ export default class OauthRouter extends BaseRouter {
 
     mappings.set('CallbackController', ['get', '/oauth/callback']);
     mappings.set('LoginController', ['get', '/oauth/login']);
+    mappings.set('LogoutController', ['get', '/oauth/logout']);
 
     super(controllers, mappings);
   }

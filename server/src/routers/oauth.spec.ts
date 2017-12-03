@@ -1,5 +1,6 @@
 import CallbackController from '@src/controllers/oauth/callback';
 import LoginController from '@src/controllers/oauth/login';
+import LogoutController from '@src/controllers/oauth/logout';
 import OauthRouter from '@src/routers/oauth';
 import Server from '@src/server';
 
@@ -14,6 +15,7 @@ describe('Oauth routes', () => {
   let stubServer: any;
   let stubCallbackController: any;
   let stubLoginController: any;
+  let stubLogoutController: any;
 
   beforeEach(() => {
     stubServer = createStubInstance(Server);
@@ -22,10 +24,12 @@ describe('Oauth routes', () => {
     };
     stubCallbackController = createStubInstance(CallbackController);
     stubLoginController = createStubInstance(LoginController);
+    stubLogoutController = createStubInstance(LogoutController);
 
     router = new OauthRouter([
       stubCallbackController,
       stubLoginController,
+      stubLogoutController,
     ]);
 
     router.configure(stubServer);
@@ -37,5 +41,9 @@ describe('Oauth routes', () => {
 
   it('should assign the login controller to the correct path', () => {
     expect(stubServer.app.get).to.have.been.calledWith('/oauth/login');
+  });
+
+  it('should assign the logout controller to the correct path', () => {
+    expect(stubServer.app.get).to.have.been.calledWith('/oauth/logout');
   });
 });

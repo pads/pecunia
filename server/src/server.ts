@@ -1,5 +1,6 @@
 import CallbackController from '@src/controllers/oauth/callback';
 import LoginController from '@src/controllers/oauth/login';
+import LogoutController from '@src/controllers/oauth/logout';
 import OauthRouter from '@src/routers/oauth';
 import OauthService from '@src/services/oauth';
 import { ControllerFunction } from '@src/types/functions';
@@ -40,10 +41,12 @@ export default class Server {
 
     const callbackController = new CallbackController(oauthService);
     const loginController = new LoginController(oauthService);
+    const logoutController = new LogoutController();
 
     const oauthRouter = new OauthRouter([
       callbackController,
       loginController,
+      logoutController,
     ]);
     oauthRouter.configure(this);
   }

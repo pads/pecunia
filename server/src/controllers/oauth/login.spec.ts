@@ -1,4 +1,5 @@
 import LoginController from '@src/controllers/oauth/login';
+import OauthService from '@src/services/oauth';
 
 import { expect, use } from 'chai';
 import { createStubInstance, spy } from 'sinon';
@@ -9,12 +10,14 @@ describe('Oauth login controller', () => {
 
   let controller: LoginController;
   let fakeSession: any;
+  let serviceStub: any;
 
   beforeEach(() => {
+    serviceStub = createStubInstance(OauthService);
     fakeSession = {
       access_token: 'MY_TOKEN',
     };
-    controller = new LoginController();
+    controller = new LoginController(serviceStub);
   });
 
   describe('successful action', () => {
