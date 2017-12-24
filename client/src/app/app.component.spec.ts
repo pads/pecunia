@@ -2,7 +2,7 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { MatCardModule, MatGridListModule, MatToolbarModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
-import { rootReducer } from './app.store';
+import { accountsReducer } from './app.store';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -14,7 +14,7 @@ describe('AppComponent', () => {
         MatToolbarModule,
         MatGridListModule,
         MatCardModule,
-        StoreModule.forRoot({ accounts: rootReducer })
+        StoreModule.forRoot({ accounts: accountsReducer })
       ],
       declarations: [
         AppComponent

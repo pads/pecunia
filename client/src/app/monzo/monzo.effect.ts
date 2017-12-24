@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import {
-  GET_ACCOUNTS_TYPE,
+  GET_ACCOUNTS,
   AccountsResolved,
   AccountsFailed
 } from '../app.actions';
@@ -23,7 +23,7 @@ export class MonzoEffect {
   constructor(private http: HttpClient,
               private $actions: Actions) { }
 
-  @Effect() $getAccounts: Observable<Action> = this.$actions.ofType(GET_ACCOUNTS_TYPE)
+  @Effect() $getAccounts: Observable<Action> = this.$actions.ofType(GET_ACCOUNTS)
     .mergeMap(action =>
       this.http.get<Accounts>(`${BASE_URL}/accounts`)
         .map(data => (new AccountsResolved(data.accounts)))
