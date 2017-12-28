@@ -11,6 +11,7 @@ import * as errorHandler from 'errorhandler';
 import * as express from 'express';
 import * as session from 'express-session';
 import { SessionOptions } from 'express-session';
+import * as path from 'path';
 
 config();
 
@@ -22,6 +23,7 @@ export default class Server {
 
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(express.static(path.join('client', 'dist')));
     this.app.set('port', process.env.PORT || 3000);
 
     this.configureSession();
