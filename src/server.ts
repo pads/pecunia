@@ -26,13 +26,15 @@ export default class Server {
     this.app.use(express.static(path.join('client', 'dist')));
     this.app.set('port', process.env.PORT || 3000);
 
-    this.configureSession();
-    this.configureRoutes();
-
     if (process.env.NODE_ENV !== 'production') {
+      this.app.options('*', cors());
       this.app.use(cors());
       this.app.use(errorHandler());
     }
+
+    this.configureSession();
+    this.configureRoutes();
+
   }
 
   configureRoutes() {
