@@ -3,9 +3,9 @@ import LoginController from '@src/controllers/oauth/login';
 import LogoutController from '@src/controllers/oauth/logout';
 import OauthRouter from '@src/routers/oauth';
 import OauthService from '@src/services/oauth';
-import { ControllerFunction } from '@src/types/functions';
 
 import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
 import { config } from 'dotenv';
 import * as errorHandler from 'errorhandler';
 import * as express from 'express';
@@ -28,6 +28,7 @@ export default class Server {
     this.configureRoutes();
 
     if (process.env.NODE_ENV !== 'production') {
+      this.app.use(cors());
       this.app.use(errorHandler());
     }
   }
